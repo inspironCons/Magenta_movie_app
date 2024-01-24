@@ -1,6 +1,6 @@
-# moviesapp
+# Movies App
 
-A new Flutter project.
+A Flutter project for movies application with API from https://developer.themoviedb.org
 
 ## Getting Started
 
