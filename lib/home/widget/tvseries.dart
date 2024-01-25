@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:moviesapp/apikey/apikey.dart';
-import 'package:moviesapp/reusable_slider/slider.dart';
+import 'package:moviesapp/reusable_slider/slider_tv.dart';
 
 class Tvseries extends StatefulWidget {
   const Tvseries({super.key});

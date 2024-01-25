@@ -165,7 +165,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ],
             ),
           ),
-          
           SliverList(
             delegate: SliverChildListDelegate(
               [
@@ -173,7 +172,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   height: 20.0,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20, bottom: 15),
                   child: Text(
                     'Categories',
                     style: GoogleFonts.montserrat(
@@ -184,12 +183,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   height: 45,
                   width: MediaQuery.of(context).size.width,
                   child: TabBar(
+                      dividerHeight: 0,
+                      indicatorPadding: const EdgeInsets.only(
+                          top: 1, bottom: 1, left: -20, right: -20),
+                      indicator: BoxDecoration(
+                          border: Border.all(color: Colors.transparent),
+                          color: const Color(0xff252836),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8))),
                       controller: tabController,
                       physics: const BouncingScrollPhysics(),
-                      labelPadding: const EdgeInsets.symmetric(horizontal: 25),
+                      labelPadding: const EdgeInsets.symmetric(horizontal: 20),
                       isScrollable: true,
-                      dividerHeight: 2,
-                      automaticIndicatorColorAdjustment: false,
                       indicatorColor: const Color(0xff12cdd9),
                       labelColor: const Color(0xff12cdd9),
                       tabs: [
