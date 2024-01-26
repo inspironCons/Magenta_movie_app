@@ -62,6 +62,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            floating: true,
             centerTitle: true,
             toolbarHeight: 60,
             pinned: false,

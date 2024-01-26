@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:moviesapp/apikey/apikey.dart';
+import 'package:moviesapp/reusable_slider/slider_movies.dart';
 
 class Movies extends StatefulWidget {
   const Movies({super.key});
@@ -14,9 +14,12 @@ class Movies extends StatefulWidget {
 
 class _MoviesState extends State<Movies> {
   List<Map<String, dynamic>> popularmoviesseries = [];
+  List<Map<String, dynamic>> nowplayingmoviesseries = [];
 
   var popularmoviesurl =
       'https://api.themoviedb.org/3/movie/popular?api_key=$apikey';
+  var nowplayingmoviesurl =
+      'https://api.themoviedb.org/3/movie/now_playing?api_key=$apikey';
 
   Future<void> moviesfunction() async {
     var popularmoviesresponse = await http.get(Uri.parse(popularmoviesurl));
@@ -30,6 +33,24 @@ class _MoviesState extends State<Movies> {
           "vote_average": popularmoviesjson[i]["vote_average"],
           "release_date": popularmoviesjson[i]["release_date"],
           "id": popularmoviesjson[i]["id"],
+        });
+      }
+    } else {
+      print(popularmoviesresponse.statusCode);
+    }
+
+    var nowplayingmoviesresponse =
+        await http.get(Uri.parse(nowplayingmoviesurl));
+    if (nowplayingmoviesresponse.statusCode == 200) {
+      var tempdata = jsonDecode(nowplayingmoviesresponse.body);
+      var nowplayingmoviesjson = tempdata['results'];
+      for (var i = 0; i < nowplayingmoviesjson.length; i++) {
+        nowplayingmoviesseries.add({
+          "title": nowplayingmoviesjson[i]["title"],
+          "poster_path": nowplayingmoviesjson[i]["poster_path"],
+          "vote_average": nowplayingmoviesjson[i]["vote_average"],
+          "release_date": nowplayingmoviesjson[i]["release_date"],
+          "id": nowplayingmoviesjson[i]["id"],
         });
       }
     } else {
@@ -49,121 +70,12 @@ class _MoviesState extends State<Movies> {
             );
           } else {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 15, bottom: 20),
-                  child: Text(
-                    'Popular Movies',
-                    style: GoogleFonts.montserrat(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(
-                  height: 470,
-                  // color: Colors.amber,
-                  child: ListView.builder(
-                      reverse: true,
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: popularmoviesseries.length,
-                      itemBuilder: ((context, index) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: SingleChildScrollView(
-                            // controller: ScrollController(),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  height: 300,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      ),
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(
-                                            "https://image.tmdb.org/t/p/w500${popularmoviesseries[index]['poster_path']}",
-                                          ))),
-                                ),
-                                Container(
-                                    decoration: const BoxDecoration(
-                                        color: Color(0xff252836),
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(15),
-                                            bottomRight: Radius.circular(15))),
-                                    padding: const EdgeInsets.only(
-                                        top: 10, left: 10, bottom: 10),
-                                    margin: const EdgeInsets.only(left: 10),
-                                    width: 200,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Movie Title',
-                                          style: GoogleFonts.montserrat(
-                                            color: const Color(0xff92929D),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        Text(
-                                          popularmoviesseries[index]['title'],
-                                          maxLines: 2,
-                                          overflow: TextOverflow.visible,
-                                          style: GoogleFonts.montserrat(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text(
-                                          'Date Release',
-                                          style: GoogleFonts.montserrat(
-                                            color: const Color(0xff92929D),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        Text(
-                                          popularmoviesseries[index]
-                                              ['release_date'],
-                                          style: GoogleFonts.montserrat(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text(
-                                          'Rating',
-                                          style: GoogleFonts.montserrat(
-                                            color: const Color(0xff92929D),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        Text(
-                                          '⭐ ${popularmoviesseries[index]['vote_average']}',
-                                          style: GoogleFonts.montserrat(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ))
-                              ],
-                            ),
-                          ),
-                        );
-                      })),
-                ),
+                sliderListMovies(
+                    popularmoviesseries, 'Popular Movies', 'Movies', 20),
+                sliderListMovies(
+                    nowplayingmoviesseries, 'Now Playing', 'Movies', 20)
               ],
             );
           }
