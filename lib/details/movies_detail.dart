@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:moviesapp/apikey/apikey.dart';
-import 'package:moviesapp/home/home.dart';
 
 class MoviesDetails extends StatefulWidget {
   var id;
@@ -121,8 +120,8 @@ class _MoviesDetailsState extends State<MoviesDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff1f1d2b),
+    return const Scaffold(
+      backgroundColor: Color(0xff1f1d2b),
       // body: FutureBuilder(
       //     future: MoviesDetails(),
       //     builder: (context, snapshot) {
@@ -146,7 +145,7 @@ class _MoviesDetailsState extends State<MoviesDetails> {
       //                               MaterialPageRoute(
       //                                   builder: (context) => const Home()),
       //                               (route) => false);
-      //                       }, 
+      //                       },
       //                       icon: const Icon(Icons.home, size: 28, color: Colors.white,))
       //                   ],
       //                   backgroundColor: const Color.fromRGBO(18, 18, 18, 0.5),
