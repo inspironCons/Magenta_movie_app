@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:moviesapp/apikey/apikey.dart';
-import 'package:moviesapp/reusable_slider/slider_movies.dart';
+import 'package:moviesapp/reusable_slider/slider.dart';
 
 class Movies extends StatefulWidget {
   const Movies({super.key});
@@ -72,10 +72,26 @@ class _MoviesState extends State<Movies> {
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                sliderListMovies(
-                    popularmoviesseries, 'Popular Movies', 'Movies', 20),
-                sliderListMovies(
-                    nowplayingmoviesseries, 'Now Playing', 'Movies', 20)
+                sliderList(
+                    listname: popularmoviesseries,
+                    title: 'Popular Movies',
+                    type: 'movie',
+                    itemcount: 20,
+                    titleapi: 'title',
+                    date: 'release_date'),
+                sliderList(
+                  listname: nowplayingmoviesseries,
+                  title: 'Now Playing Movies',
+                  type: 'movie',
+                  itemcount: 20,
+                  titleapi: 'title',
+                  date: 'release_date',
+                ),
+
+                // sliderListMovies(
+                //     popularmoviesseries, 'Popular Movies', 'Movies', 20),
+                // sliderListMovies(
+                //     nowplayingmoviesseries, 'Now Playing', 'Movies', 20)
               ],
             );
           }

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:moviesapp/details/movies_detail.dart';
+import 'package:moviesapp/details/tvseries_detail.dart';
 
-Widget sliderList(List listname, String title, String type, int itemcount) {
+Widget sliderList(
+    {required List listname,
+    required String title,
+    required String type,
+    required int itemcount,
+    String? date,
+    String? titleapi}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -22,7 +30,21 @@ Widget sliderList(List listname, String title, String type, int itemcount) {
             itemCount: itemcount,
             itemBuilder: ((context, index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  if (type == 'movie') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                TVSeriesDetails(listname[index]['id'])));
+                  } else if (type == 'tv') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MoviesDetails(listname[index]['id'])));
+                  } else {}
+                },
                 child: SingleChildScrollView(
                   // controller: ScrollController(),
                   child: Column(
@@ -64,9 +86,9 @@ Widget sliderList(List listname, String title, String type, int itemcount) {
                                 ),
                               ),
                               Text(
-                                listname[index]['name'],
-                                maxLines: 2,
-                                overflow: TextOverflow.visible,
+                                listname[index][titleapi],
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.montserrat(
                                   color: Colors.white,
                                   fontSize: 14,
@@ -85,7 +107,7 @@ Widget sliderList(List listname, String title, String type, int itemcount) {
                                 ),
                               ),
                               Text(
-                                listname[index]['Date'],
+                                listname[index][date],
                                 style: GoogleFonts.montserrat(
                                     fontSize: 14, fontWeight: FontWeight.bold),
                               ),

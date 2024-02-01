@@ -8,6 +8,7 @@ class TVSeriesDetails extends StatefulWidget {
   State<TVSeriesDetails> createState() => _TVSeriesDetailsState();
 }
 
+
 class _TVSeriesDetailsState extends State<TVSeriesDetails> {
   @override
   Widget build(BuildContext context) {

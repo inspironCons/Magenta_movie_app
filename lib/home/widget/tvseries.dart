@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:moviesapp/apikey/apikey.dart';
-import 'package:moviesapp/reusable_slider/slider_tv.dart';
+import 'package:moviesapp/reusable_slider/slider.dart';
 
 class Tvseries extends StatefulWidget {
   const Tvseries({super.key});
@@ -90,9 +90,30 @@ class _TvseriesState extends State<Tvseries> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                sliderList(populartvseries, 'Popular TV Series', 'TV', 20),
-                sliderList(onairtvseries, 'On Air TV Series', 'TV', 20),
-                sliderList(topratedtvseries, 'Top Rated TV Series', 'TV', 20)
+                sliderList(
+                    listname: populartvseries,
+                    title: 'Popular Tv Series',
+                    type: 'tv',
+                    itemcount: 20,
+                    titleapi: 'name',
+                    date: "Date"),
+                sliderList(
+                    listname: onairtvseries,
+                    title: 'On Air Tv Series',
+                    type: 'tv',
+                    itemcount: 20,
+                    titleapi: 'name',
+                    date: "Date"),
+                sliderList(
+                    listname: topratedtvseries,
+                    title: 'Top Rated Tv Series',
+                    type: 'tv',
+                    itemcount: 20,
+                    titleapi: 'name',
+                    date: "Date"),
+                // sliderList(populartvseries, 'Popular TV Series', 'TV', 20),
+                // sliderList(onairtvseries, 'On Air TV Series', 'TV', 20),
+                // sliderList(topratedtvseries, 'Top Rated TV Series', 'TV', 20)
               ],
             ),
           );

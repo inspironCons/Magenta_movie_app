@@ -5,7 +5,7 @@ import 'package:moviesapp/details/tvseries_detail.dart';
 class descriptioncheckui extends StatefulWidget {
   var newid;
   var newtype;
-  descriptioncheckui({this.newid, this.newtype});
+  descriptioncheckui({super.key, this.newid, this.newtype});
 
   @override
   State<descriptioncheckui> createState() => _descriptioncheckuiState();
@@ -14,12 +14,10 @@ class descriptioncheckui extends StatefulWidget {
 class _descriptioncheckuiState extends State<descriptioncheckui> {
   checktype() {
     if (widget.newtype == 'movie') {
-      return MovieDetails(widget.newid);
-    }
-    else if (widget.newid == 'tv') {
+      return MoviesDetails(widget.newid);
+    } else if (widget.newid == 'tv') {
       return TVSeriesDetails(widget.newid);
-    }
-    else {
+    } else {
       Errorui();
     }
   }
@@ -31,7 +29,7 @@ class _descriptioncheckuiState extends State<descriptioncheckui> {
 }
 
 Widget Errorui() {
-  return Scaffold(
+  return const Scaffold(
     body: Center(
       child: Text('Error'),
     ),
